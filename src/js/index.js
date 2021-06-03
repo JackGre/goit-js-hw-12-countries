@@ -1,4 +1,4 @@
-import ApiService from "./get-aip" ;
+//import ApiService from "./get-aip" ;
 import countryMarkup from "../templates/country.hbs";
 import countriesMarkup from "../templates/countries.hbs";
 import { error } from "@pnotify/core";
@@ -60,7 +60,7 @@ function addPlaceholder() {
     );
 };
 
-/*function countryClick (event) {
+function countryClick (event) {
     event.preventDefault();
     if (event.target.nodeName === "IMG") {
         const name = event.target.parentNode.textContent;
@@ -73,41 +73,37 @@ function addPlaceholder() {
         requestFetch(name);
         return;
     };
-};*/
-function countryClick(e) {
-    e.preventDefault();
-  
-    if (e.target.nodeName === "IMG") {
-      const name = e.target.parentNode.textContent;
-      requestFetch(name);
-      return;
-    }
-  
-    if (e.target.nodeName === "A") {
-      const name = e.target.textContent;
-      requestFetch(name);
-    }
-  }
+};
+
 
 
 
 /*function requestFetch (name) {
-    const serviceApi = new ApiService ({
-        root: "https://restcountries.eu/rest/v2/name/",
-        query: name,
-        onResolved: makeMarkup,
-    });
-    serviceApi.fetch();
-};*/
+    
+       const root = "https://restcountries.eu/rest/v2/name/";
+        const query = name;
+        const onResolved = makeMarkup(data);
+        fetch();
+    }*/
+//const kkk = makeMarkup();
 
-function requestFetch(name) {
-    const serviceApi = new ApiService({
-      root: "https://restcountries.eu/rest/v2/name/",
-      query: name,
-      //loaderSelector: ".loader",
-      onResolved: makeMarkup,
-      ///onRejected: onError,
-    });
-  
-    serviceApi.fetch();
-  }
+function requestFetch(name) {  
+    const root = "https://restcountries.eu/rest/v2/name/";
+    const query = name;
+    const resolved = makeMarkup;
+      fetch(`${root}${query}`)
+      .then(onFetch)
+      .then(response => 
+      {`${resolved(response)}`})
+}    
+function onFetch(response) {
+        if (response.ok) {
+          return response.json();
+        } else if (response.status === 404) {
+          throw "Invalid entry.";
+        } 
+      }
+
+
+
+
