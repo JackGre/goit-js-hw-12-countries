@@ -1,18 +1,15 @@
-//import ApiService from "./get-aip" ;
+
 import countryMarkup from "../templates/country.hbs";
 import countriesMarkup from "../templates/countries.hbs";
 import { error } from "@pnotify/core";
 import "@pnotify/core/dist/PNotify.css";
-//import getRefs from './refs';
+
 const debounce = require("lodash.debounce");
-/*const refs = {
-    containerCountri: document.querySelector(".country"),
-    input: document.querySelector("input[data-country]"),
-};*/
+
 const containerCountri = document.querySelector(".country");
-console.log(containerCountri)
+
 const input = document.querySelector("input[data-country]");
-//const { containerCountri, input } = refs;
+
 
 addPlaceholder();
 input.addEventListener("input", debounce(getCountryInfo, 500));
@@ -61,48 +58,34 @@ function addPlaceholder() {
 };
 
 function countryClick (event) {
-    event.preventDefault();
-    if (event.target.nodeName === "IMG") {
-        const name = event.target.parentNode.textContent;
-        requestFetch(name);
-        return;
-    };
 
-    if (event.target.nodeName === "A") {
+     if (event.target.nodeName === "A") {
+        event.preventDefault();
         const name = event.target.textContent;
+             
         requestFetch(name);
         return;
     };
 };
 
 
-
-
-/*function requestFetch (name) {
-    
-       const root = "https://restcountries.eu/rest/v2/name/";
-        const query = name;
-        const onResolved = makeMarkup(data);
-        fetch();
-    }*/
-//const kkk = makeMarkup();
-
 function requestFetch(name) {  
     const root = "https://restcountries.eu/rest/v2/name/";
     const query = name;
     const resolved = makeMarkup;
+    
       fetch(`${root}${query}`)
       .then(onFetch)
       .then(response => 
-      {`${resolved(response)}`})
+      {`${resolved(response)}`});
 }    
 function onFetch(response) {
         if (response.ok) {
           return response.json();
         } else if (response.status === 404) {
           throw "Invalid entry.";
-        } 
-      }
+        }; 
+};
 
 
 
