@@ -73,11 +73,16 @@ function requestFetch(name) {
     const root = "https://restcountries.eu/rest/v2/name/";
     const query = name;
     const resolved = makeMarkup;
+    const onRejected = onError;
     
       fetch(`${root}${query}`)
       .then(onFetch)
       .then(response => 
-      {`${resolved(response)}`});
+      {`${resolved(response)}`})
+      .catch((response) => {
+        
+        `${onRejected(response)}`;
+      });
 }    
 function onFetch(response) {
         if (response.ok) {
@@ -88,5 +93,12 @@ function onFetch(response) {
 };
 
 
-
+function onError() {
+    containerCountri.innerHTML = "";
+    const error = document.createElement("h1");
+    error.textContent = "Sorry:((((";
+    error.classList.add("header");
+    containerCountri.appendChild(error);
+    
+  }
 
